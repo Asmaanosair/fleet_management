@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "4399a192-b7e4-43f1-8754-0373127ef6c7",
+		"name": "FleetManagment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8126106",
+		"_collection_link": "https://blue-resonance-913001.postman.co/workspace/My-Workspace~2edfaec4-67ea-4f9f-816a-1bf8e3b3241c/collection/8126106-4399a192-b7e4-43f1-8754-0373127ef6c7?action=share&source=collection_link&creator=8126106"
+	},
+	"item": [
+		{
+			"name": "LIst Seats",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2|976fikRgBovzyx9nYfxtaYYe88dBQYRybXL88WmZ1fb2ec4e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/available-seats?station_from_id=2&station_to_id=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"available-seats"
+					],
+					"query": [
+						{
+							"key": "station_from_id",
+							"value": "2"
+						},
+						{
+							"key": "station_to_id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Booking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "3|zRpK1dLn1ISJudiKXTlzpVjq9SmjnL9PBpIdxwPSa13482a0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "bus_seat_id",
+							"value": "17",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/booking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"booking"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

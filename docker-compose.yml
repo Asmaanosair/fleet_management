@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+    app:
+        build:
+            args:
+                user: sammy
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: fleet
+        container_name: fleet_management-app
+        restart: unless-stopped
+        working_dir: /var/www/fleet
+        volumes:
+            - ./:/var/www/fleet
+        networks:
+            - fleet
+        command:
+            - /bin/bash
+            - -c
+            - |
+                composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader  --ignore-platform-reqs
+                php artisan key:generate
+                php artisan migrate --force
+                php artisan db:seed
+                php artisan serve
+
+    db:
+        image: mysql
+        container_name: fleet_management
+        restart: unless-stopped
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        networks:
+            - fleet
+
+    nginx:
+        image: nginx:alpine
+        container_name: fleet_management-nginx
+        restart: unless-stopped
+        ports:
+            - 8000:80
+        volumes:
+            - ./:/var/www/fleet
+            - ./docker-compose/nginx:/etc/nginx/conf.d/
+        networks:
+            - fleet
+
+networks:
+    fleet:
+        driver: bridge
+
+
